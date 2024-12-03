@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Light gray background */
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px; /* Space between table and button */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for elegance */
+            background-color: #fff; /* White background for the table */
+        }
+
+        table, th, td {
+            border: 1px solid #ddd; /* Light gray border for a softer look */
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff; /* Bootstrap primary color */
+            color: white; /* White text for header */
+        }
+
+        img {
+            max-width: 100px;  /* Adjust the size of the photo as needed */
+            height: auto;
+            border-radius: 50%; /* Circular images for a modern look */
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff; /* Link color */
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        .back-button {
+            display: block;
+            width: 20%; /* Width of the button */
+            margin: 0 auto; /* Center the button */
+            padding: 10px;
+            background-color: #4CAF50; /* Green background */
+            color: white;
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px; /* Font size */
+            transition: background-color 0.3s; /* Smooth background transition */
+        }
+
+        .back-button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+
+</head>
+<body>
+  <h1>Students</h1>
+
+  <table>
+      <thead>
+          <tr>
+              <th>Photo</th>
+              <th>Username</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for student in students %}
+              <tr>
+                  <td>
+                      <img src="{{ url_for('static', filename='uploads/' ~ student.photo_filename) }}" alt="Student Photo">
+                  </td>
+                  <td>{{ student.username }}</td>
+                  <td>
+                       <a href="{{ url_for('view_report', student_id=student.id) }}">View Report</a>
+                  </td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+<button class="back-button" onclick="goBack()">Back to Dashboard</button>
+ <script>
+        function goBack() {
+            // Redirect to the dashboard URL
+            window.location.href = '{{ url_for("admin_page") }}'; // Replace with your dashboard URL
+        }
+    </script>
+</body>
+</html>
